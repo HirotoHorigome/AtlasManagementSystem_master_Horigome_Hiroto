@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use App\Rules\SexRule;
 use DB;
 
 use App\Models\Users\Subjects;
@@ -57,10 +58,12 @@ class RegisterController extends Controller
         return view('auth.register.register', compact('subjects'));
     }
 
-    public function registerPost(Request $request)
+    public function registerPost(PostFormRequest $request)
     {
+        // トランザクション:処理のまとまりのこと、トランザクションを開始して、コミットされるまでをひとまとまりとして処理します。
+        // エラーが発生したり、例外が投げられた場合は処理をなかったことにして、トランザクションの開始前に戻します。
         DB::beginTransaction();
-        try{
+        try {
             $old_year = $request->old_year;
             $old_month = $request->old_month;
             $old_day = $request->old_day;
@@ -83,7 +86,7 @@ class RegisterController extends Controller
             $user->subjects()->attach($subjects);
             DB::commit();
             return view('auth.login.login');
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             DB::rollback();
             return redirect()->route('loginView');
         }
