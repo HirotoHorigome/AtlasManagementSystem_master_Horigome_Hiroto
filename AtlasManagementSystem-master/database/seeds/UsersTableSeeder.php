@@ -23,5 +23,17 @@ class UsersTableSeeder extends Seeder
             'role' => '1',
             'password' => bcrypt('0273442654'),
         ]);
+
+        User::create([
+            'over_name' => '堀込',
+            'under_name' => '一',
+            'over_name_kana' => 'ホリゴメ',
+            'under_name_kana' => 'イチ',
+            'mail_address' => 'horigome1@gmail.com',
+            'sex' => '1',
+            'birth_day' => '1995-05-28',
+            'role' => '4',
+            'password' => bcrypt('0273442654'),
+        ]);
     }
 }

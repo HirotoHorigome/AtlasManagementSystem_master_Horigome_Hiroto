@@ -58,7 +58,7 @@ class RegisterController extends Controller
         return view('auth.register.register', compact('subjects'));
     }
 
-    public function registerPost(PostFormRequest $request)
+    public function registerPost(Request $request)
     {
         // トランザクション:処理のまとまりのこと、トランザクションを開始して、コミットされるまでをひとまとまりとして処理します。
         // エラーが発生したり、例外が投げられた場合は処理をなかったことにして、トランザクションの開始前に戻します。
