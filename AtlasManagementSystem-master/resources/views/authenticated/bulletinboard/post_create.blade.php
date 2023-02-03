@@ -7,8 +7,11 @@
       <p class="mb-0">カテゴリー</p>
       <select class="w-100" form="postCreate" name="post_category_id">
         @foreach($main_categories as $main_category)
-        <optgroup label="{{ $main_category->main_category }}"></optgroup>
-        <!-- サブカテゴリー表示 -->
+        <optgroup label="{{ $main_category->main_category }}">
+          <!-- サブカテゴリー表示 -->
+          @foreach ($main_category->SubCategories as $sub_category)
+          <option value="">{{ $sub_category->sub_category }}</option>
+          @endforeach
         </optgroup>
         @endforeach
       </select>
@@ -33,6 +36,7 @@
     <form action="{{ route('post.create') }}" method="post" id="postCreate">{{ csrf_field() }}</form>
   </div>
   @can('admin')
+  @if (Auth::user()->role != "4")
   <div class="w-25 ml-auto mr-auto">
     <div class="category_area mt-5 p-5">
       <div class="">
@@ -40,6 +44,8 @@
         <input type="text" class="w-100" name="main_category_name" form="mainCategoryRequest">
         <input type="submit" value="追加" class="w-100 btn btn-primary p-0" form="mainCategoryRequest">
       </div>
+      <br>
+      <br>
       <!-- サブカテゴリー追加 -->
       <div class="">
         <p class="m-0">サブカテゴリー</p>
@@ -55,6 +61,7 @@
       <form action="{{ route('main.category.create') }}" method="post" id="mainCategoryRequest">{{ csrf_field() }}</form>
       <form action="{{ route('sub.category.create') }}" method="post" id="subCategoryRequest">{{ csrf_field() }}</form>
     </div>
+    @endif
   </div>
   @endcan
 </div>

@@ -47,7 +47,8 @@ class PostsController extends Controller
 
     public function postInput()
     {
-        $main_categories = MainCategory::get();
+        // withメソッドの引数にはモデルで定義したリレーションメソッド名を文字列で指定します。
+        $main_categories = MainCategory::with('SubCategories')->get();
         return view('authenticated.bulletinboard.post_create', compact('main_categories'));
     }
 
