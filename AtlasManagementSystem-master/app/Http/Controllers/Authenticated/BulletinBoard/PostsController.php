@@ -18,7 +18,10 @@ class PostsController extends Controller
 {
     public function show(Request $request)
     {
-        $posts = Post::with('user', 'postComments')->get();
+        $posts = Post::join('post_sub_categories', 'posts.id', '=', 'post_sub_categories.post_id')
+            ->join('sub_categories', 'post_sub_categories.sub_category_id', '=', 'sub_categories.id')
+            ->with('user', 'postComments')->get();
+        $posts_id = Post::with('user', 'postComments')->get();
         $categories = MainCategory::with('SubCategories')->get();
         $like = new Like;
         $post_comment = new Post;
@@ -28,7 +31,10 @@ class PostsController extends Controller
                 ->orWhere('post', 'like', '%' . $request->keyword . '%')->get();
         } else if ($request->category_word) {
             $sub_category = $request->category_word;
-            $posts = Post::with('user', 'postComments')->get();
+            $posts = Post::join('post_sub_categories', 'posts.id', '=', 'post_sub_categories.post_id')
+                ->join('sub_categories', 'post_sub_categories.sub_category_id', '=', 'sub_categories.id')
+                ->with('user', 'postComments')
+                ->where('sub_category', $sub_category)->get();
         } else if ($request->like_posts) {
             $likes = Auth::user()->likePostId()->get('like_post_id');
             $posts = Post::with('user', 'postComments')
@@ -37,7 +43,7 @@ class PostsController extends Controller
             $posts = Post::with('user', 'postComments')
                 ->where('user_id', Auth::id())->get();
         }
-        return view('authenticated.bulletinboard.posts', compact('posts', 'categories', 'like', 'post_comment'));
+        return view('authenticated.bulletinboard.posts', compact('posts', 'categories', 'like', 'post_comment', 'posts_id'));
     }
 
     public function postDetail($post_id)
