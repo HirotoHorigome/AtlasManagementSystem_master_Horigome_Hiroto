@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     const UPDATED_AT = null;
-    const CREATED_AT = null;
 
     protected $fillable = [
         'user_id',
