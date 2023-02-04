@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Categories\MainCategory;
 use App\Models\Categories\SubCategory;
+use App\Models\Categories\PostSubCategory;
 use App\Models\Posts\Post;
 use App\Models\Posts\PostComment;
 use App\Models\Posts\Like;
@@ -58,6 +59,11 @@ class PostsController extends Controller
             'user_id' => Auth::id(),
             'post_title' => $request->post_title,
             'post' => $request->post_body
+        ]);
+
+        PostSubCategory::create([
+            'post_id' => $post->id,
+            'sub_category_id' => $request->post_category_id,
         ]);
         return redirect()->route('post.show');
     }

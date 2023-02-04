@@ -10,7 +10,7 @@
         <optgroup label="{{ $main_category->main_category }}">
           <!-- サブカテゴリー表示 -->
           @foreach ($main_category->SubCategories as $sub_category)
-          <option value="">{{ $sub_category->sub_category }}</option>
+          <option value="{{ $sub_category->id }}">{{ $sub_category->sub_category }}</option>
           @endforeach
         </optgroup>
         @endforeach
