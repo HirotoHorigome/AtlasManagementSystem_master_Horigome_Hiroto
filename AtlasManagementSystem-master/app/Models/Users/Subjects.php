@@ -15,7 +15,8 @@ class Subjects extends Model
         'subject'
     ];
 
-    public function users(){
-        return;// リレーションの定義
+    public function users()
+    {
+        return $this->belongsToMany('App\Models\Users\User', 'subject_users', 'subject_id', 'user_id')->withPivot('id');
     }
 }
