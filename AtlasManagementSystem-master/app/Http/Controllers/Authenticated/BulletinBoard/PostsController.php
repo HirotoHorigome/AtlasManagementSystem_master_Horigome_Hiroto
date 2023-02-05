@@ -18,10 +18,7 @@ class PostsController extends Controller
 {
     public function show(Request $request)
     {
-        $posts = Post::join('post_sub_categories', 'posts.id', '=', 'post_sub_categories.post_id')
-            ->join('sub_categories', 'post_sub_categories.sub_category_id', '=', 'sub_categories.id')
-            ->with('user', 'postComments')->get();
-        $posts_id = Post::with('user', 'postComments')->get();
+        $posts = Post::with('user', 'postComments', 'subCategories')->get();
         $categories = MainCategory::with('SubCategories')->get();
         $like = new Like;
         $post_comment = new Post;
@@ -43,7 +40,7 @@ class PostsController extends Controller
             $posts = Post::with('user', 'postComments')
                 ->where('user_id', Auth::id())->get();
         }
-        return view('authenticated.bulletinboard.posts', compact('posts', 'categories', 'like', 'post_comment', 'posts_id'));
+        return view('authenticated.bulletinboard.posts', compact('posts', 'categories', 'like', 'post_comment'));
     }
 
     public function postDetail($post_id)
@@ -67,10 +64,6 @@ class PostsController extends Controller
             'post' => $request->post_body
         ]);
 
-        PostSubCategory::create([
-            'post_id' => $post->id,
-            'sub_category_id' => $request->post_category_id,
-        ]);
         return redirect()->route('post.show');
     }
 

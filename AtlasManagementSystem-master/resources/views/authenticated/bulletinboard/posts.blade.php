@@ -5,15 +5,14 @@
   <div class="post_view w-75 mt-5">
     <p class="w-75 m-auto">投稿一覧</p>
     @foreach($posts as $post)
-    @foreach ($posts_id as $post_id)
     <div class="post_area border w-75 m-auto p-3">
       <p><span>{{ $post->user->over_name }}</span><span class="ml-3">{{ $post->user->under_name }}</span>さん</p>
-      <p><a href="{{ route('post.detail', ['id' => $post_id]) }}">{{ $post->post_title }}</a></p>
+      <p><a href="{{ route('post.detail', ['id' => $post->id]) }}">{{ $post->post_title }}</a></p>
       <div class="post_bottom_area d-flex">
         <input type="submit" name="category_word" class="category_btn" value="{{ $post->sub_category }}" form="postSearchRequest">
         <div class="d-flex post_status">
           <div class="mr-5">
-            <i class="fa fa-comment"></i><span class="">{{ $post_comment->commentCounts($post_id->id) }}</span>
+            <i class="fa fa-comment"></i><span class="">{{ $post_comment->commentCounts($post->id) }}</span>
           </div>
           <div>
             @if(Auth::user()->is_Like($post->id))
@@ -25,7 +24,6 @@
         </div>
       </div>
     </div>
-    @endforeach
     @endforeach
   </div>
   <div class="other_area border w-25">
