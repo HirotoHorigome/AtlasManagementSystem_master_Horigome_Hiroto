@@ -8,7 +8,7 @@
     @foreach ($posts_id as $post_id)
     <div class="post_area border w-75 m-auto p-3">
       <p><span>{{ $post->user->over_name }}</span><span class="ml-3">{{ $post->user->under_name }}</span>さん</p>
-      <p><a href="{{ route('post.detail', ['id' => $post->id]) }}">{{ $post->post_title }}</a></p>
+      <p><a href="{{ route('post.detail', ['id' => $post_id]) }}">{{ $post->post_title }}</a></p>
       <div class="post_bottom_area d-flex">
         <input type="submit" name="category_word" class="category_btn" value="{{ $post->sub_category }}" form="postSearchRequest">
         <div class="d-flex post_status">
