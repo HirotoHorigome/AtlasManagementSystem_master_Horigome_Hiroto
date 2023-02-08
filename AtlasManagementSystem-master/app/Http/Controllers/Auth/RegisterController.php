@@ -67,7 +67,9 @@ class RegisterController extends Controller
         $old_day = $request->old_day;
         $data = $old_year . '-' . $old_month . '-' . $old_day;
         $birth_day = date('Y-m-d', strtotime($data));
-        $subjects = $request->role;
+        $role = $request->role;
+        $subjects_selected_array = $request->subject;
+        $subjects_selected = serialize($subjects_selected_array);
 
         $user_get = User::create([
             'over_name' => $request->over_name,
@@ -77,12 +79,12 @@ class RegisterController extends Controller
             'mail_address' => $request->mail_address,
             'sex' => $request->sex,
             'birth_day' => $birth_day,
-            'role' => $request->role,
+            'role' => $role,
             'password' => bcrypt($request->password)
         ]);
         $user = User::findOrFail($user_get->id);
         // attach：中間テーブルにアクセスし、値の追加をするメソッド
-        $user->subjects()->attach($subjects);
+        $user->subjects()->attach($subjects_selected);
         DB::commit();
         return view('auth.login.login');
 
