@@ -19,6 +19,7 @@ class PostsController extends Controller
     public function show(Request $request)
     {
         $posts = Post::with('user', 'postComments', 'subCategories')->get();
+        $posts = Post::with('subCategories')->get();
         $categories = MainCategory::with('SubCategories')->get();
         $like = new Like;
         $post_method = new Post;
@@ -29,8 +30,9 @@ class PostsController extends Controller
                 ->orWhere('post', 'like', '%' . $request->keyword . '%')->get();
         } else if ($request->category_word) {
             $sub_category = $request->category_word;
-            $posts = Post::with('user', 'postComments')
-                ->where('sub_category', $sub_category)->get();
+            $sub_category_id_array = SubCategory::where('sub_category', "$sub_category")->get('id');
+            $sub_category_id = $sub_category_id_array[0]->id;
+            $posts = SubCategory::find($sub_category_id)->posts;
         } else if ($request->like_posts) {
             $likes = Auth::user()->likePostId()->get('like_post_id');
             $posts = Post::with('user', 'postComments')
