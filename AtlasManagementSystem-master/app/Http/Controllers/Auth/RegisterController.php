@@ -62,61 +62,35 @@ class RegisterController extends Controller
     {
         // トランザクション:処理のまとまりのこと、トランザクションを開始して、コミットされるまでをひとまとまりとして処理します。
         // エラーが発生したり、例外が投げられた場合は処理をなかったことにして、トランザクションの開始前に戻します。
-        $old_year = $request->old_year;
-        $old_month = $request->old_month;
-        $old_day = $request->old_day;
-        $data = $old_year . '-' . $old_month . '-' . $old_day;
-        $birth_day = date('Y-m-d', strtotime($data));
-        $role = $request->role;
-        $subjects_selected_array = $request->subject;
-        $subjects_selected = serialize($subjects_selected_array);
 
-        $user_get = User::create([
-            'over_name' => $request->over_name,
-            'under_name' => $request->under_name,
-            'over_name_kana' => $request->over_name_kana,
-            'under_name_kana' => $request->under_name_kana,
-            'mail_address' => $request->mail_address,
-            'sex' => $request->sex,
-            'birth_day' => $birth_day,
-            'role' => $role,
-            'password' => bcrypt($request->password)
-        ]);
-        $user = User::findOrFail($user_get->id);
-        // attach：中間テーブルにアクセスし、値の追加をするメソッド
-        $user->subjects()->attach($subjects_selected);
-        DB::commit();
-        return view('auth.login.login');
+        try {
+            DB::beginTransaction();
+            $old_year = $request->old_year;
+            $old_month = $request->old_month;
+            $old_day = $request->old_day;
+            $data = $old_year . '-' . $old_month . '-' . $old_day;
+            $birth_day = date('Y-m-d', strtotime($data));
+            $subjects = $request->subject;
 
-        // バリデーション追加後上と差し替え
-        // try {
-        //     DB::beginTransaction();
-        //     $old_year = $request->old_year;
-        //     $old_month = $request->old_month;
-        //     $old_day = $request->old_day;
-        //     $data = $old_year . '-' . $old_month . '-' . $old_day;
-        //     $birth_day = date('Y-m-d', strtotime($data));
-        //     $subjects = $request->subject;
-
-        //     $user_get = User::create([
-        //         'over_name' => $request->over_name,
-        //         'under_name' => $request->under_name,
-        //         'over_name_kana' => $request->over_name_kana,
-        //         'under_name_kana' => $request->under_name_kana,
-        //         'mail_address' => $request->mail_address,
-        //         'sex' => $request->sex,
-        //         'birth_day' => $birth_day,
-        //         'role' => $request->role,
-        //         'password' => bcrypt($request->password)
-        //     ]);
-        //     $user = User::findOrFail($user_get->id);
-        //     // attach：中間テーブルにアクセスし、値の追加をするメソッド
-        //     $user->subjects()->attach($subjects);
-        //     DB::commit();
-        //     return view('auth.login.login');
-        // } catch (\Exception $e) {
-        //     DB::rollback();
-        //     return redirect()->route('loginView');
-        // }
+            $user_get = User::create([
+                'over_name' => $request->over_name,
+                'under_name' => $request->under_name,
+                'over_name_kana' => $request->over_name_kana,
+                'under_name_kana' => $request->under_name_kana,
+                'mail_address' => $request->mail_address,
+                'sex' => $request->sex,
+                'birth_day' => $birth_day,
+                'role' => $request->role,
+                'password' => bcrypt($request->password)
+            ]);
+            $user = User::findOrFail($user_get->id);
+            // attach：中間テーブルにアクセスし、値の追加をするメソッド
+            $user->subjects()->attach($subjects);
+            DB::commit();
+            return view('auth.login.login');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return redirect()->route('loginView');
+        }
     }
 }
