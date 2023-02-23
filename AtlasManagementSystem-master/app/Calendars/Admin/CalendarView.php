@@ -56,7 +56,7 @@ class CalendarView
         $startDay = $this->carbon->format("Y-m-01");
         // 今日の日付を＄toDayに代入
         $toDay = $this->carbon->format("Y-m-d");
-        // その日が現在の月の範囲内にあるかどうかを判断している。
+        // 過去の日か今日以降の日付かを判断し、クラスづけをしている
         if ($startDay <= $day->everyDay() && $toDay >= $day->everyDay()) {
           $html[] = '<td class="past-day border">';
         } else {
