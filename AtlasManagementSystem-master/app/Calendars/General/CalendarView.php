@@ -81,7 +81,8 @@ class CalendarView
             $html[] = '<p class="m-auto p-0 w-75" style="font-size:12px">' . $reservePart . '</p>';
             $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
           } else {
-            $html[] = '<button type="submit" class="btn btn-danger p-0 w-75" name="delete_date" style="font-size:12px" value="' . $day->authReserveDate($day->everyDay())->first()->setting_reserve . '">' . $reservePart . '</button>';
+            $html[] = '<button type="submit" form="deleteParts" class="btn btn-danger p-0 w-75" name="delete_date" style="font-size:12px" value="' . $day->authReserveDate($day->everyDay())->first()->setting_reserve . '">' . $reservePart . '</button>';
+            $html[] = '<input type="hidden" name="deletePart" value="' . $day->authReserveDate($day->everyDay())->first()->setting_part . '" form="deleteParts">';
             $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
           }
         } else {

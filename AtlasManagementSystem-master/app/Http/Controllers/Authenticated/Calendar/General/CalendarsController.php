@@ -51,11 +51,11 @@ class CalendarsController extends Controller
     {
         DB::beginTransaction();
         try {
-            $getPart = $request->getPart;
+            $deletePart = $request->deletePart;
             // 配列のみを取り出している
             $deleteDate = $request->delete_date;
             // 日付と部が等しいものを取り出す
-            $delete_settings = ReserveSettings::where('setting_reserve', $deleteDate)->where('setting_part', $getPart)->first();
+            $delete_settings = ReserveSettings::where('setting_reserve', $deleteDate)->where('setting_part', $deletePart)->first();
             //その部の予約枠数を増やす
             $delete_settings->increment('limit_users');
             // 中間テーブルにデータ削除
