@@ -33,18 +33,31 @@ class CalendarWeekDay
   {
     $html = [];
     $one_part = ReserveSettings::with('users')->where('setting_reserve', $ymd)->where('setting_part', '1')->first();
+    $html[] = '</a>';
     $two_part = ReserveSettings::with('users')->where('setting_reserve', $ymd)->where('setting_part', '2')->first();
     $three_part = ReserveSettings::with('users')->where('setting_reserve', $ymd)->where('setting_part', '3')->first();
 
     $html[] = '<div class="text-left">';
     if ($one_part) {
-      $html[] = '<p class="day_part m-0 pt-1">1部 "' . $one_part->limit_users . '"</p>';
+      $html[] = '<a href=" ' . route('calendar.admin.detail', ['id' => $one_part->id, 'data' => $one_part->setting_reserve, 'part' => '1']) . ' ">';
+      $html[] = '<p class="day_part m-0 pt-1">1部 </p>';
+      $html[] = '</a>';
+      $result = $one_part->limit_users - 20;
+      $html[] = '<p class="day_part m-0 pt-1"> ' . $result . ' </p>';
     }
     if ($two_part) {
-      $html[] = '<p class="day_part m-0 pt-1">2部 "' . $two_part->limit_users . '"</p>';
+      $html[] = '<a href=" ' . route('calendar.admin.detail', ['id' => $two_part->id, 'data' => $two_part->setting_reserve, 'part' => '2']) . ' ">';
+      $html[] = '<p class="day_part m-0 pt-1">2部 </p>';
+      $html[] = '</a>';
+      $result = $one_part->limit_users - 20;
+      $html[] = '<p class="day_part m-0 pt-1"> ' . $result . ' </p>';
     }
     if ($three_part) {
-      $html[] = '<p class="day_part m-0 pt-1">3部 "' . $three_part->limit_users . '"</p>';
+      $html[] = '<a href=" ' . route('calendar.admin.detail', ['id' => $three_part->id, 'data' => $three_part->setting_reserve, 'part' => '3']) . ' ">';
+      $html[] = '<p class="day_part m-0 pt-1">3部 </p>';
+      $html[] = '</a>';
+      $result = $one_part->limit_users - 20;
+      $html[] = '<p class="day_part m-0 pt-1"> ' . $result . ' </p>';
     }
     $html[] = '</div>';
 
