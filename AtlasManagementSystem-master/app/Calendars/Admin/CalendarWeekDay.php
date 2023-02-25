@@ -42,21 +42,21 @@ class CalendarWeekDay
       $html[] = '<a href=" ' . route('calendar.admin.detail', ['id' => $one_part->id, 'data' => $one_part->setting_reserve, 'part' => '1']) . ' ">';
       $html[] = '<p class="day_part m-0 pt-1">1部 </p>';
       $html[] = '</a>';
-      $result = $one_part->limit_users - 20;
+      $result = 20 - $one_part->limit_users;
       $html[] = '<p class="day_part m-0 pt-1"> ' . $result . ' </p>';
     }
     if ($two_part) {
       $html[] = '<a href=" ' . route('calendar.admin.detail', ['id' => $two_part->id, 'data' => $two_part->setting_reserve, 'part' => '2']) . ' ">';
       $html[] = '<p class="day_part m-0 pt-1">2部 </p>';
       $html[] = '</a>';
-      $result = $one_part->limit_users - 20;
+      $result = 20 - $two_part->limit_users;
       $html[] = '<p class="day_part m-0 pt-1"> ' . $result . ' </p>';
     }
     if ($three_part) {
       $html[] = '<a href=" ' . route('calendar.admin.detail', ['id' => $three_part->id, 'data' => $three_part->setting_reserve, 'part' => '3']) . ' ">';
       $html[] = '<p class="day_part m-0 pt-1">3部 </p>';
       $html[] = '</a>';
-      $result = $one_part->limit_users - 20;
+      $result = 20 - $three_part->limit_users;
       $html[] = '<p class="day_part m-0 pt-1"> ' . $result . ' </p>';
     }
     $html[] = '</div>';
