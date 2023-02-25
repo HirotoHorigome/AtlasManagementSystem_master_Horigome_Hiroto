@@ -1,43 +1,50 @@
 <?php
+
 namespace App\Calendars\Admin;
 
 use Carbon\Carbon;
 use App\Models\Calendars\ReserveSettings;
 
-class CalendarWeekDay{
+class CalendarWeekDay
+{
   protected $carbon;
 
-  function __construct($date){
+  function __construct($date)
+  {
     $this->carbon = new Carbon($date);
   }
 
-  function getClassName(){
+  function getClassName()
+  {
     return "day-" . strtolower($this->carbon->format("D"));
   }
 
-  function render(){
+  function render()
+  {
     return '<p class="day">' . $this->carbon->format("j") . '日</p>';
   }
 
-  function everyDay(){
+  function everyDay()
+  {
     return $this->carbon->format("Y-m-d");
   }
 
-  function dayPartCounts($ymd){
+  function dayPartCounts($ymd)
+  {
     $html = [];
     $one_part = ReserveSettings::with('users')->where('setting_reserve', $ymd)->where('setting_part', '1')->first();
     $two_part = ReserveSettings::with('users')->where('setting_reserve', $ymd)->where('setting_part', '2')->first();
     $three_part = ReserveSettings::with('users')->where('setting_reserve', $ymd)->where('setting_part', '3')->first();
 
     $html[] = '<div class="text-left">';
-    if($one_part){
-      $html[] = '<p class="day_part m-0 pt-1">1部</p>';
+    if ($one_part) {
+      $html[] = '<p class="day_part m-0 pt-1">1部 "' . $one_part->limit_users . '"</p>';
     }
-    if($two_part){
-      $html[] = '<p class="day_part m-0 pt-1">2部</p>';
+    if ($two_part) {
+      $html[] = '<p class="day_part m-0 pt-1">2部 "' . $two_part->limit_users . '"</p>';
     }
-    if($three_part){
-      $html[] = '<p class="day_part m-0 pt-1">3部</p>';
+    if ($three_part) {
+      $html[] = '<p class="day_part m-0 pt-1">3部 "' . $three_part->limit_users . '"</p>';
     }
     $html[] = '</div>';
 
@@ -45,36 +52,40 @@ class CalendarWeekDay{
   }
 
 
-  function onePartFrame($day){
+  function onePartFrame($day)
+  {
     $one_part_frame = ReserveSettings::where('setting_reserve', $day)->where('setting_part', '1')->first();
-    if($one_part_frame){
+    if ($one_part_frame) {
       $one_part_frame = ReserveSettings::where('setting_reserve', $day)->where('setting_part', '1')->first()->limit_users;
-    }else{
+    } else {
       $one_part_frame = "20";
     }
     return $one_part_frame;
   }
-  function twoPartFrame($day){
+  function twoPartFrame($day)
+  {
     $two_part_frame = ReserveSettings::where('setting_reserve', $day)->where('setting_part', '2')->first();
-    if($two_part_frame){
+    if ($two_part_frame) {
       $two_part_frame = ReserveSettings::where('setting_reserve', $day)->where('setting_part', '2')->first()->limit_users;
-    }else{
+    } else {
       $two_part_frame = "20";
     }
     return $two_part_frame;
   }
-  function threePartFrame($day){
+  function threePartFrame($day)
+  {
     $three_part_frame = ReserveSettings::where('setting_reserve', $day)->where('setting_part', '3')->first();
-    if($three_part_frame){
+    if ($three_part_frame) {
       $three_part_frame = ReserveSettings::where('setting_reserve', $day)->where('setting_part', '3')->first()->limit_users;
-    }else{
+    } else {
       $three_part_frame = "20";
     }
     return $three_part_frame;
   }
 
   //
-  function dayNumberAdjustment(){
+  function dayNumberAdjustment()
+  {
     $html = [];
     $html[] = '<div class="adjust-area">';
     $html[] = '<p class="d-flex m-0 p-0">1部<input class="w-25" style="height:20px;" name="1" type="text" form="reserveSetting"></p>';
