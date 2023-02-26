@@ -9,7 +9,10 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use App\Rules\KanaRule;
 use App\Rules\SexRule;
+use App\Rules\RoleRule;
+use Carbon\Carbon;
 use DB;
 
 use App\Models\Users\Subjects;
@@ -60,6 +63,45 @@ class RegisterController extends Controller
 
     public function registerPost(Request $request)
     {
+        // バリデーション設定
+        $request->validate([
+            'over_name' => 'required|string|max:10',
+            'under_name' => 'required|string|max:10',
+            'over_name_kana' => ['required', 'string', 'max:30', new KanaRule()],
+            'under_name_kana' => ['required', 'string', 'max:30', new KanaRule()],
+            'mail_address' => 'required|email|unique:users|max:100',
+            'sex' => ['required', new SexRule()],
+            'role' => ['required', new RoleRule()],
+            'password' => 'required|string|min:8|max:20|confirmed|alpha_num',
+            'password_confirmation' => 'required|string|min:8|max:20|alpha_num',
+        ]);
+
+        $rules = [
+            'old_year' => 'required|integer|min:2000|max:' . date('Y'),
+            'old_month' => 'required|integer|min:1|max:12',
+            'old_day' => 'required|integer|min:1|max:31',
+        ];
+
+        // バリデーションを実行する
+        $validator = Validator::make($request->all(), $rules);
+
+        // バリデーションが失敗した場合はエラーを返す
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
+
+        // 年月日を結合して日付オブジェクトを作成する
+        $date = Carbon::createFromDate(
+            $request->input('old_year'),
+            $request->input('old_month'),
+            $request->input('old_day')
+        );
+
+        // 2000年1月1日から今日までの日付かどうかをチェックする
+        if ($date->isBefore('2000-01-01') || $date->isAfter(now())) {
+            return redirect()->back()->withErrors(['date' => '無効な日付が入力されました。']);
+        }
+
         // トランザクション:処理のまとまりのこと、トランザクションを開始して、コミットされるまでをひとまとまりとして処理します。
         // エラーが発生したり、例外が投げられた場合は処理をなかったことにして、トランザクションの開始前に戻します。
 
