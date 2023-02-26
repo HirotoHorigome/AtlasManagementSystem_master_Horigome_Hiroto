@@ -100,6 +100,10 @@ class PostsController extends Controller
     }
     public function mainCategoryCreate(Request $request)
     {
+        $request->validate([
+            'main_category_name' => 'required|string|max:100|unique:main_categories,main_category',
+        ]);
+
         if ($request->main_category_name != null) {
             MainCategory::create(['main_category' => $request->main_category_name]);
             return redirect()->route('post.input');
@@ -109,6 +113,11 @@ class PostsController extends Controller
 
     public function subCategoryCreate(Request $request)
     {
+        $request->validate([
+            'main_category_id' => 'required|exists:main_categories,id',
+            'sub_category_name' => 'required|string|max:100|unique:sub_categories,sub_category',
+        ]);
+
         if ($request->main_category_id != null and $request->sub_category_name != null) {
             SubCategory::create(['main_category_id' => $request->main_category_id, 'sub_category' => $request->sub_category_name]);
             return redirect()->route('post.input');

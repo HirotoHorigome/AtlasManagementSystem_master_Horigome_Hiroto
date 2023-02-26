@@ -149,6 +149,9 @@ return [
         'mail_address' => 'メールアドレス',
         'password' => 'パスワード',
         'password_confirmation' => 'パスワード確認',
+        'main_category_name' => 'メインカテゴリー',
+        'main_category_id' => 'メインカテゴリー',
+        'sub_category_name' => 'サブカテゴリー',
     ],
 
 ];
