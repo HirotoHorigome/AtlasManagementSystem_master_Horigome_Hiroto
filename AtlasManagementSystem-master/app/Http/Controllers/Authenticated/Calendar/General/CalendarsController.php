@@ -52,7 +52,6 @@ class CalendarsController extends Controller
         DB::beginTransaction();
         try {
             $deletePart = $request->deletePart;
-            // 配列のみを取り出している
             $deleteDate = $request->delete_date;
             // 日付と部が等しいものを取り出す
             $delete_settings = ReserveSettings::where('setting_reserve', $deleteDate)->where('setting_part', $deletePart)->first();
