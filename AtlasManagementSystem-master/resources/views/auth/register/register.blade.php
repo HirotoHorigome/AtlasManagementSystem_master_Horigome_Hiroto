@@ -14,7 +14,7 @@
 </head>
 <body>
   @foreach ($errors->all() as $error)
-  <li>{{$error}}</li>
+  <li class="error_message">{{$error}}</li>
   @endforeach
   <form action="{{ route('registerPost') }}" method="POST">
     <div class="w-100 vh-100 d-flex" style="align-items:center; justify-content:center;">
