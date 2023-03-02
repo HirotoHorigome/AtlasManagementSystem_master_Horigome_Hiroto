@@ -22,6 +22,8 @@ li {
   height: 100vh;
   background-color: #03AAD2;
   font-weight: bold;
+  padding-top: 10px;
+  padding-left: 5px;
 }
 
 .main-container {
@@ -78,6 +80,19 @@ li {
 
 .adjust-table-btn {
   width: 70%;
+}
+
+.btn-primary {
+  margin-top: 10px
+}
+
+/* admin */
+.calender_admin {
+  margin-top: 15px;
+}
+
+.calender_admin_title {
+  margin-left: 5px;
 }
 
 /* モーダル */
@@ -148,6 +163,32 @@ li {
 .error_message {
   font-size: 12px;
   color: red;
+}
+
+.posts_sidebar_container {
+  margin-top: 30px;
+}
+
+.posts_sidebar_contents {
+  width: 100%;
+  margin: auto;
+}
+
+.posts_button {
+  height: 40px;
+  width: 100%;
+  border: #08AAD3;
+  border-radius: 5%;
+  background-color: #08AAD3;
+  margin-top: 40px;
+  margin-bottom: 10px;
+  padding: 8px 0 8px 0;
+  color: white;
+}
+
+.posts_search {
+  width: 100%;
+  padding-bottom: 8px;
 }
 
 /* 掲示板 詳細画面 */
@@ -238,6 +279,10 @@ li {
 }
 
 /* ユーザー検索 */
+.user_search_main_title {
+  font-weight: 400;
+}
+
 .reserve_users_area {
   display: flex;
   flex-wrap: wrap;
@@ -257,6 +302,7 @@ li {
 .one_person {
   width: 250px;
   height: 250px;
+  padding-left: 10px;
 }
 
 .search_conditions span {
@@ -276,4 +322,80 @@ li {
 
 .subject_inner {
   display: none;
+}
+
+.search_area_contents {
+  width: 100%;
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
+.search_title {
+  color: #2C5273;
+  font-size: larger;
+  font-weight: 400;
+}
+
+.search_font {
+  color: #2C5273;
+  font-size: medium;
+}
+
+.free_word {
+  box-sizing: border-box;
+  position: relative;
+  border: 1px solid #999;
+  padding: 3px 10px;
+  border-radius: 20px;
+  height: 2.3em;
+  width: 260px;
+  margin-bottom: 20px;
+}
+
+.user_search_select_box {
+  box-sizing: border-box;
+  position: relative;
+  border: 1px solid #999;
+  padding: 3px 10px;
+  border-radius: 20px;
+  height: 2.3em;
+  width: 80px;
+  margin-bottom: 10px;
+}
+
+.search_conditions_inner {
+  background-color: #ECF1F6;
+}
+
+.user_search_button {
+  margin-top: 10px;
+}
+
+.user_search_button_reset {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  font: inherit;
+  outline: none;
+  color: #2C5273;
+  font-weight: 500;
+}
+
+.user_search_button_search_btn_container {
+  margin-top: 10px;
+}
+
+.user_search_button_search_btn {
+  box-sizing: border-box;
+  position: relative;
+  border: none;
+  padding: 3px 10px;
+  border-radius: 20px;
+  height: 2.3em;
+  width: 80px;
+  background-color: #08AAD3;
+  color: white;
 }

@@ -1,7 +1,7 @@
 @extends('layouts.sidebar')
 
 @section('content')
-<p>ユーザー検索</p>
+<p class="user_search_main_title">ユーザー検索</p>
 <div class="search_content w-100 border d-flex">
   <div class="reserve_users_area">
     @foreach($users as $user)
@@ -54,26 +54,29 @@
     @endforeach
   </div>
   <div class="search_area w-25 border">
-    <div class="">
-      <div>
+    <div class="search_area_contents">
+      <h1 class="search_title">検索</h1>
+      <div class="user_search_box">
         <input type="text" class="free_word" name="keyword" placeholder="キーワードを検索" form="userSearchRequest">
       </div>
       <div>
-        <lavel>カテゴリ</lavel>
-        <select form="userSearchRequest" name="category">
+        <lavel class="search_font">カテゴリ</lavel>
+        <br>
+        <select class="user_search_select_box" form="userSearchRequest" name="category">
           <option value="name">名前</option>
           <option value="id">社員ID</option>
         </select>
       </div>
       <div>
-        <label>並び替え</label>
-        <select name="updown" form="userSearchRequest">
+        <label class="search_font">並び替え</label>
+        <br>
+        <select class="user_search_select_box" name="updown" form="userSearchRequest">
           <option value="ASC">昇順</option>
           <option value="DESC">降順</option>
         </select>
       </div>
-      <div class="">
-        <p class="m-0 search_conditions"><span>検索条件の追加</span></p>
+      <div>
+        <p class="m-0 search_font search_conditions"><span>検索条件の追加</span></p>
         <div class="search_conditions_inner">
           <div>
             <label>性別</label>
@@ -101,12 +104,13 @@
           </div>
         </div>
       </div>
-      <div>
-        <input type="reset" value="リセット" form="userSearchRequest">
-      </div>
-      <div>
-        <input type="submit" name="search_btn" value="検索" form="userSearchRequest">
-      </div>
+      <div class="user_search_button">
+        <div class="user_search_button_reset_container">
+          <input class="user_search_button_reset" type="reset" value="リセットする" form="userSearchRequest">
+        </div>
+        <div class="user_search_button_search_btn_container">
+          <input class="user_search_button_search_btn" type="submit" name="search_btn" value="検索" form="userSearchRequest">
+        </div>
     </div>
     <form action="{{ route('user.show') }}" method="get" id="userSearchRequest"></form>
   </div>

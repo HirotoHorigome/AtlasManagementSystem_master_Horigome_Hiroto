@@ -29,10 +29,10 @@
     </div>
     @endforeach
   </div>
-  <div class="other_area border w-25">
-    <div class="border m-4">
-      <div class=""><a href="{{ route('post.input') }}">投稿</a></div>
-      <div class="">
+  <div class="posts_sidebar_container">
+    <div class="posts_sidebar_contents">
+      <div class=""><a href="{{ route('post.input') }}"><button class="posts_button">投稿</button></a></div>
+      <div class="posts_search">
         <input type="text" placeholder="キーワードを検索" name="keyword" form="postSearchRequest">
         <input type="submit" value="検索" form="postSearchRequest">
       </div>
