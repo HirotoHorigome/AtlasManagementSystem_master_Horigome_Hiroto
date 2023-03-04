@@ -21,8 +21,8 @@ return [
     'alpha_dash'           => ':attributeはアルファベットとダッシュ(-)及び下線(_)がご利用できます。',
     'alpha_num'            => ':attributeはアルファベット数字がご利用できます。',
     'array'                => ':attributeは配列でなくてはなりません。',
-    'before'               => ':attributeには、:dateより前の日付をご利用ください。',
-    'before_or_equal'      => ':attributeには、:date以前の日付をご利用ください。',
+    'before'               => ':attributeが無効です。',
+    'before_or_equal'      => ':attributeが無効です。',
     'between'              => [
         'numeric' => ':attributeは、:minから:maxの間で指定してください。',
         'file'    => ':attributeは、:min kBから、:max kBの間で指定してください。',
@@ -153,6 +153,7 @@ return [
         'main_category_id' => 'メインカテゴリー',
         'sub_category_name' => 'サブカテゴリー',
         'comment' => 'コメント',
+        'birth_date' => '生年月日',
     ],
 
 ];
