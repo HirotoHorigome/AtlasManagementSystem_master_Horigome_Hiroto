@@ -4,9 +4,6 @@
 <div class="post_create_container d-flex">
   <div class="post_create_area border w-50 m-5 p-5">
     <div class="">
-      @foreach ($errors->all() as $error)
-      <li>{{$error}}</li>
-      @endforeach
       <p class="mb-0">カテゴリー</p>
       <select class="w-100" form="postCreate" name="post_category_id">
         @foreach($main_categories as $main_category)
@@ -42,6 +39,9 @@
   @if (Auth::user()->role != "4")
   <div class="w-25 ml-auto mr-auto">
     <div class="category_area mt-5 p-5">
+      @if ($errors->has('main_category_name'))
+        <li class="error_message">{{$errors->first ('main_category_name')}}</li>
+      @endif
       <div class="">
         <p class="m-0">メインカテゴリー</p>
         <input type="text" class="w-100" name="main_category_name" form="mainCategoryRequest">
@@ -50,6 +50,12 @@
       <br>
       <br>
       <!-- サブカテゴリー追加 -->
+      @if ($errors->has('main_category_id'))
+          <li class="error_message">{{$errors->first ('main_category_id')}}</li>
+      @endif
+      @if ($errors->has('sub_category_name'))
+          <li class="error_message">{{$errors->first ('sub_category_name')}}</li>
+      @endif
       <div class="">
         <p class="m-0">サブカテゴリー</p>
           <select class="w-100" name="main_category_id" form="subCategoryRequest">

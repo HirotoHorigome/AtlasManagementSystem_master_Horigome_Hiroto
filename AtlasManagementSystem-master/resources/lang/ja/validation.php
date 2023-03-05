@@ -154,6 +154,8 @@ return [
         'sub_category_name' => 'サブカテゴリー',
         'comment' => 'コメント',
         'birth_date' => '生年月日',
+        'post_title' => '投稿タイトル',
+        'post_body' => '投稿内容',
     ],
 
 ];

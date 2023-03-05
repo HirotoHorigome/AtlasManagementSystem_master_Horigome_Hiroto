@@ -9,15 +9,17 @@
         <tr class="text-center">
           <th class="w-25">ID</th>
           <th class="w-25">名前</th>
+          <th class="w-25">場所</th>
         </tr>
+        @foreach ($reservePersons as $reservePerson)
+        @foreach ($reservePerson->users as $user)
         <tr class="text-center">
-          @foreach ($reservePersons as $reservePerson)
-          @foreach ($reservePerson->users as $user)
           <td class="w-25">{{ $user->id }}</td>
           <td class="w-25">{{ $user->over_name }} {{ $user->under_name }}</td>
-          @endforeach
-          @endforeach
+          <td>リモート</td>
         </tr>
+        @endforeach
+        @endforeach
       </table>
     </div>
   </div>

@@ -15,6 +15,12 @@
           </div>
         </div>
 
+        @if ($errors->has('post_title'))
+        <li class="error_message">{{$errors->first ('post_title')}}</li>
+        @endif
+        @if ($errors->has('post_body'))
+        <li class="error_message">{{$errors->first ('post_body')}}</li>
+        @endif
         <div class="contributor d-flex">
           <p>
             <span>{{ $post->user->over_name }}</span>
@@ -44,10 +50,10 @@
   </div>
   <div class="w-50 p-3">
     <div class="comment_container border m-5">
+      @if ($errors->has('comment'))
+      <li class="error_message">{{$errors->first ('comment')}}</li>
+      @endif
       <div class="comment_area p-3">
-        @foreach ($errors->all() as $error)
-        <li class="error_message">{{$error}}</li>
-        @endforeach
         <p class="m-0">コメントする</p>
         <textarea class="w-100" name="comment" form="commentRequest"></textarea>
         <input type="hidden" name="post_id" form="commentRequest" value="{{ $post->id }}">

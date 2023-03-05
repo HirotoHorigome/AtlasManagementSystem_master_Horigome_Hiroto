@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&family=Oswald:wght@200&display=swap" rel="stylesheet">
-  <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 
@@ -19,18 +19,16 @@
   <div class="d-flex">
     <div class="sidebar">
       @section('sidebar')
-      <p><a href="{{ route('top.show') }}">トップ</a></p>
-      <p><a href="/logout">ログアウト</a></p>
-      @if (Auth::user()->role == "4")
-      <p><a href="{{ route('calendar.general.show',['user_id' => Auth::id()]) }}">スクール予約</a></p>
-      @endif
+      <p class="side_bar_content"><i class="icon fa-sharp fa-solid fa-house"></i><a href="{{ route('top.show') }}"> トップ</a></p>
+      <p class="side_bar_content"><i class="icon fa-sharp fa-solid fa-right-from-bracket"></i> <a href="/logout">ログアウト</a></p>
+      <p class="side_bar_content"><i class="icon fa-sharp fa-solid fa-book"></i> <a href="{{ route('calendar.general.show',['user_id' => Auth::id()]) }}">スクール予約</a></p>
 
       @if (Auth::user()->role != "4")
-        <p><a href="{{ route('calendar.admin.show',['user_id' => Auth::id()]) }}">スクール予約確認</a></p>
-        <p><a href="{{ route('calendar.admin.setting',['user_id' => Auth::id()]) }}">スクール枠登録</a></p>
+        <p class="side_bar_content"><i class="icon fa-solid fa-check"></i> <a href="{{ route('calendar.admin.show',['user_id' => Auth::id()]) }}">スクール予約確認</a></p>
+        <p class="side_bar_content"><i class="icon fa-solid fa-pen-to-square"></i> <a href="{{ route('calendar.admin.setting',['user_id' => Auth::id()]) }}">スクール枠登録</a></p>
       @endif
-      <p><a href="{{ route('post.show') }}">掲示板</a></p>
-      <p><a href="{{ route('user.show') }}">ユーザー検索</a></p>
+      <p class="side_bar_content"><i class="icon fa-solid fa-table"></i> <a href="{{ route('post.show') }}">掲示板</a></p>
+      <p class="side_bar_content"><i class="icon fa-solid fa-user"></i> <a href="{{ route('user.show') }}">ユーザー検索</a></p>
       @show
     </div>
     <div class="main-container">
